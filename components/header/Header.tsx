@@ -147,14 +147,14 @@ const Header = () => {
 					</ul>
 					<UserButton afterSignOutUrl="/sign-in" />
 
-					{!isSignedIn && (
+					{/* {!isSignedIn && (
 						<button
 							onClick={() => router.push("/sign-in")}
 							className="bg-primary px-10 py-2 text-white rounded-lg"
 						>
 							Sign in
 						</button>
-					)}
+					)} */}
 				</div>
 			</header>
 		</section>

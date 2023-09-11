@@ -1,15 +1,16 @@
 import prisma from "@/lib/db";
-import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
+import type { User } from "@clerk/nextjs/api";
+import { currentUser } from "@clerk/nextjs";
 
 export async function POST(req: Request) {
 	try {
-		// const { userId } = auth();
-		let userId = "12345";
+		const user: User | null = await currentUser();
+
 		const body = await req.json();
 		const { desc, postId, parentId, replyOnUser } = body;
 
-		if (!userId) {
+		if (!user) {
 			return new NextResponse("Unauthorized", { status: 403 });
 		}
 
@@ -30,7 +31,10 @@ export async function POST(req: Request) {
 		const newComment = await prisma.comment.create({
 			data: {
 				desc: desc,
-				userId,
+				userId: user.id,
+				UserFirstName: user.firstName!,
+				UserLastName: user.lastName!,
+				UserImageUrl: user.imageUrl!,
 				postId,
 				replyOnUser,
 				parentId,
