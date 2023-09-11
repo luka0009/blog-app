@@ -33,7 +33,7 @@ export default function Home() {
 
 	const commentData = {
 		postId: "64fec47c819edaf7b5c3f0c1",
-		desc: "Test Comment",
+		desc: "Nice post!",
 		parentId: "",
 		replyOnUser: false,
 	};
@@ -51,5 +51,36 @@ export default function Home() {
 		}
 	};
 
-	return <div>laskdjaskljd</div>;
+	const updateComment = async () => {
+		try {
+			const response = await axios.patch(
+				`http://localhost:3000/api/comments/64fec59b819edaf7b5c3f0c3`,
+				{ desc: "UPDATE" }
+			);
+
+			console.log("POST request response:", response.data);
+		} catch (error: any) {
+			console.error("Error sending PATCH request:", error.message);
+		}
+	};
+
+	const deleteComment = async () => {
+		try {
+			const response = await axios.delete(
+				`http://localhost:3000/api/comments/64fec59b819edaf7b5c3f0c3`			);
+
+			console.log("POST request response:", response.data);
+		} catch (error: any) {
+			console.error("Error sending DELETE request:", error.message);
+		}
+	};
+
+	return (
+		<div className="flex flex-col py-24 mt-[900px]">
+			laskdjasklj
+			<button onClick={() => console.log('clicked')}
+			className="bg-orange-800 text-white"
+			>Click</button>
+		</div>
+	);
 }
