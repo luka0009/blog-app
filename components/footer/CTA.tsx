@@ -19,10 +19,9 @@ const CTA = () => {
           fill="#0D2436"
         />
       </svg>
-
-      <section className="relative bg-dark-hard px-5">
+      {/* <section className="relative bg-dark-hard px-5 w-full pt-8 z-0">
         <div className="container grid grid-cols-12 mx-auto lg:place-items-center">
-          <div className="col-span-12 lg:col-span-6">
+        <div className="col-span-12 lg:col-span-6">
             <h2 className="text-white font-roboto font-bold text-2xl md:text-4xl md:text-center md:leading-normal lg:text-left">
               Get our stories delivered From us to your inbox weekly.
             </h2>
@@ -45,7 +44,7 @@ const CTA = () => {
             </p>
           </div>
           <div className="col-span-12 hidden mb-[70px] md:block md:order-first lg:col-span-6 lg:order-last">
-            <div className="w-3/4 mx-auto relative">
+            <div className="w-3/4 mx-auto relative  lg:mt-4">
               <div className="w-1/2 h-1/2 bg-[#FC5A5A] rounded-lg absolute top-[10%] -right-[8%]" />
               <div className="w-1/2 h-1/2 bg-white rounded-lg opacity-[.06] absolute -bottom-[10%] -left-[8%]" />
               <div className="w-full rounded-xl bg-white p-3 z-[1] relative">
@@ -66,7 +65,7 @@ const CTA = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </>
   );
 };

@@ -122,11 +122,12 @@ export default function Home() {
 	};
 
 	return (
-		<div className="flex flex-col py-24 mt-[900px]">
+		<div className="">
 			laskdjasklj
-			<button onClick={() => getPost()} className="bg-orange-800 text-white">
+			<button onClick={() => console.log('aslkdaslkdj')} className="bg-orange-800 text-white">
 				Click
 			</button>
+			{/* <div className="bg-red-500 w-[300px] h-[500px]"/> */}
 		</div>
 	);
 }

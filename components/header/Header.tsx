@@ -13,10 +13,11 @@ type NavItemInfo = {
 	type: string;
 	href?: string;
 	items?: { title: string; href: string }[];
+	auth?: boolean;
 };
 
 const navItemsInfo: NavItemInfo[] = [
-	{ name: "Home", type: "link", href: "/" },
+	{ name: "Home", type: "link", href: "/", auth: false },
 	{
 		name: "Pages",
 		type: "dropdown",
@@ -24,10 +25,11 @@ const navItemsInfo: NavItemInfo[] = [
 			{ title: "About us", href: "/about" },
 			{ title: "Contact us", href: "/contact" },
 		],
+		auth: true,
 	},
-	{ name: "Articles", type: "link", href: "/articles" },
-	{ name: "Pricing", type: "link", href: "/pricing" },
-	{ name: "FAQ", type: "link", href: "/faq" },
+	{ name: "Articles", type: "link", href: "/articles", auth: true },
+	{ name: "Pricing", type: "link", href: "/pricing", auth: true },
+	{ name: "FAQ", type: "link", href: "/faq", auth: true },
 ];
 
 interface NavProps {
@@ -36,6 +38,7 @@ interface NavProps {
 
 const NavItem = ({ item }: NavProps) => {
 	const [dropdown, setDropdown] = useState(false);
+	const { isSignedIn } = useUser();
 
 	const toggleDropdownHandler = () => {
 		setDropdown((curState) => {
@@ -57,12 +60,15 @@ const NavItem = ({ item }: NavProps) => {
 		<li className="relative group">
 			{item.type === "link" ? (
 				<>
-					<Link href={item.href || "/"} className="px-4 py-2">
-						{item.name}
-					</Link>
-					<span className="cursor-pointer text-blue-500 absolute transition-all duration-500 font-bold right-0 top-0 group-hover:right-[90%] opacity-0 group-hover:opacity-100">
-						/
-					</span>
+					{!item.auth || isSignedIn ? (
+						<Link href={item.href || "/"} className="px-4 py-2">
+							{item.name}
+						</Link>
+					) : (
+						<span className="cursor-pointer text-blue-500 absolute transition-all duration-500 font-bold right-0 top-0 group-hover:right-[90%] opacity-0 group-hover:opacity-100">
+							/
+						</span>
+					)}
 				</>
 			) : (
 				<div className="flex flex-col items-center">
@@ -102,6 +108,9 @@ const Header = () => {
 	const [isVisible, setIsVisible] = useState(false);
 	const { isLoaded, isSignedIn, user } = useUser();
 
+	console.log("IS SIGNED IN", isSignedIn);
+	console.log("USER: ", user);
+
 	const router = useRouter();
 
 	const navVisibility = () => {
@@ -119,7 +128,7 @@ const Header = () => {
 	}
 
 	return (
-		<section className="sticky top-0 left-0 right-0 z-50 bg-white">
+		<section className="absolute top-0 left-0 right-0 z-50 bg-white">
 			<header className="container mx-auto px-5 flex py-4 items-center justify-between w-screen">
 				<Link href="/">
 					<Image
@@ -145,16 +154,23 @@ const Header = () => {
 							<NavItem key={item.name} item={item} />
 						))}
 					</ul>
-					<UserButton afterSignOutUrl="/sign-in" />
+					<UserButton
+						afterSignOutUrl="/sign-in"
+						appearance={{
+							elements: {
+								rootBox: "mt-5 lg:mt-0",
+							},
+						}}
+					/>
 
-					{/* {!isSignedIn && (
+					{!isSignedIn && (
 						<button
 							onClick={() => router.push("/sign-in")}
 							className="bg-primary px-10 py-2 text-white rounded-lg"
 						>
 							Sign in
 						</button>
-					)} */}
+					)}
 				</div>
 			</header>
 		</section>
