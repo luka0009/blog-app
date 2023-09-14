@@ -1,11 +1,16 @@
 "use client";
+import ArticleCard from "@/components/articles/ArticleCard";
+import Hero from "@/components/home/Hero";
 import { currentUser } from "@clerk/nextjs";
 import type { User } from "@clerk/nextjs/api";
+import { Post } from "@prisma/client";
 import axios from "axios";
 import { comment } from "postcss";
+import { useState } from "react";
 import { json } from "stream/consumers";
 
 export default function Home() {
+	const [post, setPost] = useState<Post>({});
 	// console.log('Full USer: ', user);
 	// console.log('FirsName: ', user?.firstName);
 	// console.log('LastName: ', user?.lastName);
@@ -116,18 +121,20 @@ export default function Home() {
 			);
 
 			console.log("GET request response:", response.data);
+			setPost(response.data);
 		} catch (error: any) {
 			console.error("Error sending GET request:", error.message);
 		}
 	};
-
+	getPost();
 	return (
-		<div className="">
-			laskdjasklj
-			<button onClick={() => console.log('aslkdaslkdj')} className="bg-orange-800 text-white">
-				Click
-			</button>
-			{/* <div className="bg-red-500 w-[300px] h-[500px]"/> */}
+		<div className="w-full overflow-hidden">
+			<Hero />
+			<div className="mt-[-50px] lg:mt-[-100px] flex flex-wrap gap-16 justify-center items-center">
+				<ArticleCard post={post}/>
+				<ArticleCard post={post}/>
+				<ArticleCard post={post}/>
+			</div>
 		</div>
 	);
 }
