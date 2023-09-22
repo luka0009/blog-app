@@ -10,7 +10,7 @@ import { useState } from "react";
 import { json } from "stream/consumers";
 
 export default function Home() {
-	const [post, setPost] = useState<Post>({});
+	const [post, setPost] = useState<Post>({} as Post);
 	// console.log('Full USer: ', user);
 	// console.log('FirsName: ', user?.firstName);
 	// console.log('LastName: ', user?.lastName);
@@ -131,9 +131,9 @@ export default function Home() {
 		<div className="w-full overflow-hidden">
 			<Hero />
 			<div className="mt-[-50px] lg:mt-[-100px] flex flex-wrap gap-16 justify-center items-center">
-				<ArticleCard post={post}/>
-				<ArticleCard post={post}/>
-				<ArticleCard post={post}/>
+				<ArticleCard post={post} />
+				<ArticleCard post={post} />
+				<ArticleCard post={post} />
 			</div>
 		</div>
 	);
