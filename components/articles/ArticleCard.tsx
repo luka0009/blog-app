@@ -15,18 +15,18 @@ const ArticleCard = ({ className, post }: CardProps) => {
 		<div
 			className={`overflow-hidden shadow-[rgba(7,_65,_210,_0.1)_0px_9px_30px] ${className} border-b-2 border-sky-600 max-w-[350px]`}
 		>
-			<Link href={`/blog/${post.slug}`}>
+			<Link href={`/blog/${post.id}`}>
 				<Image
 					src={post.photo || images.blogpost}
 					alt={"title"}
 					className="w-full object-cover object-center h-auto
            md:h-52 lg:h-48 xl:h-60 rounded-md"
-           width={100}
-           height={100}
+					width={100}
+					height={100}
 				/>
 			</Link>
 			<div className="p-5">
-				<Link href={`/blog/${post.slug}`}>
+				<Link href={`/blog/${post.id}`}>
 					<h2 className="font-roboto font-bold text-xl text-dark-soft md:text-2xl lg:text-[28px]">
 						{post.title}
 					</h2>
@@ -40,8 +40,8 @@ const ArticleCard = ({ className, post }: CardProps) => {
 							src={post.UserImageUrl}
 							alt="post profile"
 							className="w-9 h-9 md:w-10 md:h-10 rounded-full"
-              width={10}
-              height={10}
+							width={10}
+							height={10}
 						/>
 						<div className="flex flex-col">
 							<h4 className="font-bold italic text-dark-soft text-sm md:text-base">

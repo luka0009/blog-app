@@ -6,7 +6,7 @@ import type { User } from "@clerk/nextjs/api";
 import { Post } from "@prisma/client";
 import axios from "axios";
 import { comment } from "postcss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { json } from "stream/consumers";
 
 export default function Home() {
@@ -126,7 +126,11 @@ export default function Home() {
 			console.error("Error sending GET request:", error.message);
 		}
 	};
-	getPost();
+
+	useEffect(() => {
+		getPost();
+	}, []);
+
 	return (
 		<div className="w-full overflow-hidden">
 			<Hero />

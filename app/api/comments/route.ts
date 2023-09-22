@@ -31,19 +31,30 @@ export async function POST(req: Request) {
 		const newComment = await prisma.comment.create({
 			data: {
 				desc: desc,
+				postId,
+				replyOnUser,
+				parentId,
 				userId: user.id,
 				UserFirstName: user.firstName!,
 				UserLastName: user.lastName!,
 				UserImageUrl: user.imageUrl!,
-				postId,
-				replyOnUser,
-				parentId,
 			},
 		});
 
 		return NextResponse.json(newComment);
 	} catch (error) {
 		console.log("comment/route.ts/POST", error);
+		return new NextResponse("Internal server error", { status: 500 });
+	}
+}
+
+export async function GET(req: Request) {
+	try {
+		const comments = await prisma.comment.findMany({});
+
+		return NextResponse.json(comments);
+	} catch (error) {
+		console.log("comments/route.ts/GET", error);
 		return new NextResponse("Internal server error", { status: 500 });
 	}
 }

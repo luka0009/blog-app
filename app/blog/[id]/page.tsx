@@ -1,10 +1,17 @@
+'use client';
 import Link from "next/link";
 import Image from "next/image";
 import BreadCrumbs from "@/components/articles/BreadCrumbs";
 import images from "@/constants/images";
 import SuggestedPosts from "@/components/articles/SuggestedPosts";
+import Comments from "@/components/comments/Comments";
+import { useParams } from "next/navigation";
 
 const ArticleDetail = () => {
+	const params = useParams();
+	const postId = params.id;
+	console.log('POST ID ', postId)
+
 	const breadCrumbsData = [
 		{ name: "Home", link: "/" },
 		{ name: "Blog", link: "/blog" },
@@ -75,6 +82,7 @@ const ArticleDetail = () => {
 						molestiae reiciendis, doloribus iure quisquam!
 					</p>
 				</div>
+				<Comments className="" postId={postId} />
 			</article>
 			<SuggestedPosts
 				className="mt-8 lg:mt-0 lg:max-w-xs"
