@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 interface Post {
-	_id: string;
+	id: string;
 	image: any;
 	title: string;
 	createdAt: string;
@@ -26,15 +26,15 @@ const SuggestedPosts = ({ className, header, posts = [], tags }: Props) => {
 			<div className="grid gap-y-5 mt-5 md:grid-cols-2 md:gap-x-5 lg:grid-cols-1">
 				{posts.map((item: Post) => (
 					<div
-						key={item._id}
+						key={item.id}
 						className="flex space-x-3 flex-nowrap items-center"
 					>
 						<Image
 							className="aspect-square object-cover rounded-lg w-1/5"
 							src={item.image}
 							alt="laptop"
-                            height={30}
-                            width={30}
+							height={30}
+							width={30}
 						/>
 						<div className="text-sm font-roboto text-dark-hard font-medium">
 							<h3 className="text-sm font-roboto text-dark-hard font-medium md:text-base lg:text-lg">

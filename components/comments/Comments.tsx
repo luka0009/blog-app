@@ -1,7 +1,7 @@
 "use client";
 import CommentForm from "./CommentForm";
 import { useEffect, useState } from "react";
-import { Comment } from "@prisma/client";
+import { Comment, Reply } from "@prisma/client";
 import axios from "axios";
 import CommentComponent from "./CommentComponents";
 
@@ -12,6 +12,27 @@ type Props = {
 
 const Comments = ({ className, postId }: Props) => {
 	const [comments, setComments] = useState([] as Comment[]);
+	const [replies, setReplies] = useState([] as Reply[]);
+
+	const [affectedComment, setAffectedComment] = useState<{
+		type: string;
+		id: string;
+	} | null>(null);
+
+	const getReplies = async () => {
+		try {
+			const response = await axios.get(`http://localhost:3000/api/replies`);
+
+			console.log("GET request response:", response.data);
+			setReplies(response.data);
+		} catch (error: any) {
+			console.error("Error sending GET request:", error.message);
+		}
+	};
+
+	useEffect(() => {
+		getReplies();
+	}, []);
 
 	const getComment = async () => {
 		try {
@@ -31,7 +52,8 @@ const Comments = ({ className, postId }: Props) => {
 		desc: string,
 		postId: any,
 		parentId = null,
-		replyOnUser = false
+		replyOnUser = false,
+		replyOnUserId?: any
 	) => {
 		try {
 			const response = await axios.post("http://localhost:3000/api/comments/", {
@@ -39,6 +61,7 @@ const Comments = ({ className, postId }: Props) => {
 				postId,
 				parentId,
 				replyOnUser,
+				replyOnUserId,
 			});
 
 			console.log("POST request response:", response.data);
@@ -63,6 +86,10 @@ const Comments = ({ className, postId }: Props) => {
 						<CommentComponent
 							key={comment.id}
 							comment={comment}
+							affectedComment={affectedComment}
+							setAffectedComment={setAffectedComment}
+							addComment={createComment}
+							replies={replies}
 						/>
 					);
 				})}
